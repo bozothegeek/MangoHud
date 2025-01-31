@@ -961,6 +961,7 @@ ImTextureID add_texture(device_data *data, const std::string& filename, image_in
 
 static void check_images(struct device_data* data)
 {
+   SPDLOG_INFO("check_images");
    const overlay_params_wrapper w = g_overlay_params.get();
    if (w.params.image_params_hash == data->image_params_hash)
       return;
