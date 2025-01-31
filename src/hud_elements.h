@@ -66,6 +66,7 @@ class HudElements{
         static void custom_text();
         static void image();
         static void background_image();
+        static void alternative_background_image();
         static void vkbasalt();
         static void gamemode();
         static void graphs();

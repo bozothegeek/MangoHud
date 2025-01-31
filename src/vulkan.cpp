@@ -1016,6 +1016,22 @@ static void check_images(struct device_data* data)
          else
             SPDLOG_WARN("Failed to load image: {}", w.params.background_image);
       }
+
+      if (!w.params.alternative_background_image.empty())
+      {
+         auto& ti = HUDElements.images[w.params.alternative_background_image];
+         if (!ti.loaded && (ti.texture = add_texture(data, w.params.alternative_background_image, ti, 0)))
+         {
+            ti.valid = true;
+            auto& image = data->images[HKEY(ti.texture)];
+            SPDLOG_DEBUG("Adding '{}'", w.params.alternative_background_image);
+            load_image_file(data, w.params.alternative_background_image, &image);
+            ti.loaded = true;
+         }
+         else
+            SPDLOG_WARN("Failed to load image: {}", w.params.alternative_background_image);
+      }
+
       SPDLOG_DEBUG("DONE LOADING");
    });
 }

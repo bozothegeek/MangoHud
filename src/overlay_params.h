@@ -75,6 +75,7 @@ typedef unsigned long KeySym;
    OVERLAY_PARAM_BOOL(custom_text_center)            \
    OVERLAY_PARAM_BOOL(custom_text)                   \
    OVERLAY_PARAM_CUSTOM(background_image)            \
+   OVERLAY_PARAM_CUSTOM(alternative_background_image)\
    OVERLAY_PARAM_CUSTOM(image)                       \
    OVERLAY_PARAM_CUSTOM(image_max_width)             \
    OVERLAY_PARAM_BOOL(exec)                          \
@@ -260,6 +261,7 @@ struct overlay_params {
    std::string custom_text_center;
    std::string custom_text;
    std::string background_image;
+   std::string alternative_background_image;
    std::string image;
    unsigned image_max_width;
    std::string config_file_path;

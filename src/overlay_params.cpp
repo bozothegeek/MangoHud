@@ -446,6 +446,7 @@ parse_gl_size_query(const char *str)
 #define parse_custom_text_center(s) parse_str(s)
 #define parse_custom_text(s) parse_str(s)
 #define parse_background_image(s) parse_str(s)
+#define parse_alternative_background_image(s) parse_str(s)
 #define parse_image(s) parse_str(s)
 #define parse_image_max_width(s) parse_unsigned(s)
 #define parse_fps_value(s) parse_load_value(s)
@@ -802,7 +803,8 @@ parse_overlay_config(struct overlay_params *params,
       if (p.first == "image")
          params->image_params_hash ^= get_hash(p.second) << 1;
    }
-   params->image_params_hash ^= get_hash(/*params->image, */params->background_image) << 1;
+   params->image_params_hash ^= get_hash(params->background_image) << 1;
+   params->image_params_hash ^= get_hash(params->alternative_background_image) << 1;
 
    if(!params->output_file.empty()) {
       SPDLOG_INFO("output_file is deprecated, use output_folder instead");

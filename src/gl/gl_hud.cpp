@@ -96,7 +96,6 @@ static void check_images(overlay_params& params)
         if (o.first == "image" && !o.second.empty())
         {
             auto& ti = HUDElements.images[o.second];
-//             ti.path = o.second;
             ti.valid = GL_LoadTextureFromFile(o.second.c_str(),
                                             &tex,
                                             &(ti.width),
@@ -111,7 +110,6 @@ static void check_images(overlay_params& params)
     if (!params.background_image.empty())
     {
         auto& ti = HUDElements.images[params.background_image];
-//         ti.path = params.background_image;
         ti.valid = GL_LoadTextureFromFile(params.background_image.c_str(),
                                         &tex,
                                         &(ti.width),
@@ -122,6 +120,18 @@ static void check_images(overlay_params& params)
         images.push_back(tex);
     }
 
+    if (!params.alternative_background_image.empty())
+    {
+        auto& ti = HUDElements.images[params.alternative_background_image];
+        ti.valid = GL_LoadTextureFromFile(params.alternative_background_image.c_str(),
+                                        &tex,
+                                        &(ti.width),
+                                        &(ti.height),
+                                        0);
+        ti.loaded = true;
+        ti.texture = (ImTextureID)(intptr_t)tex;
+        images.push_back(tex);
+    }
 }
 
 void imgui_init()

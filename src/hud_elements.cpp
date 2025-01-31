@@ -695,7 +695,18 @@ void HudElements::background_image(){
 
     ImGui::GetBackgroundDrawList()->AddImage(image_info.texture,
                                                 ImVec2(0, 0),
-//                                              ImVec2(image_info.width, image_info.height));
+                                            ImGui::GetIO().DisplaySize);
+}
+
+void HudElements::alternative_background_image(){
+    const std::string& value = HUDElements.ordered_functions[HUDElements.place].second;
+
+    auto& image_info = HUDElements.images[value];
+    if (!image_info.loaded)
+        return;
+
+    ImGui::GetBackgroundDrawList()->AddImage(image_info.texture,
+                                                ImVec2(0, 0),
                                             ImGui::GetIO().DisplaySize);
 }
 
@@ -1137,6 +1148,7 @@ void HudElements::sort_elements(const std::pair<std::string, std::string>& optio
     if (param == "media_player")    { ordered_functions.push_back({media_player, value});           }
     if (param == "custom_text")     { ordered_functions.push_back({custom_text, value});            }
     if (param == "background_image") { ordered_functions.push_back({background_image, value});      }
+    if (param == "alternative_background_image") { ordered_functions.push_back({alternative_background_image, value});      }
     if (param == "image")           { ordered_functions.push_back({image, value});                  }
     if (param == "custom_text_center")  { ordered_functions.push_back({custom_text_center, value}); }
     if (param == "exec")            { ordered_functions.push_back({_exec, value});
