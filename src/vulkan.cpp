@@ -961,13 +961,14 @@ ImTextureID add_texture(device_data *data, const std::string& filename, image_in
 
 static void check_images(struct device_data* data)
 {
-   SPDLOG_INFO("check_images");
+   static bool swith_overlay_state = -1; //0: initial background loaded, 1: alternative background loaded
+   
    const overlay_params_wrapper w = g_overlay_params.get();
-   if (w.params.image_params_hash == data->image_params_hash)
+   if (w.params.image_params_hash == data->image_params_hash && ((swith_overlay_state == 1) == w.params.switch_overlay))
       return;
 
    std::unique_lock<std::mutex> lk(data->font_mutex);
-   if (w.params.image_params_hash == data->image_params_hash)
+   if (w.params.image_params_hash == data->image_params_hash && ((swith_overlay_state == 1) == w.params.switch_overlay))
       return;
 
    data->image_params_hash = w.params.image_params_hash;
@@ -978,7 +979,6 @@ static void check_images(struct device_data* data)
    data->loader_thr = std::thread([data](){
       const overlay_params_wrapper w = g_overlay_params.get();
       SPDLOG_DEBUG("STARTING LOADING");
-//       std::this_thread::sleep_for(2s);
 
       unsigned maxwidth = w.params.width;
       if (w.params.image_max_width != 0 && w.params.image_max_width < maxwidth) {
@@ -1013,6 +1013,7 @@ static void check_images(struct device_data* data)
             SPDLOG_DEBUG("Adding '{}'", w.params.background_image);
             load_image_file(data, w.params.background_image, &image);
             ti.loaded = true;
+            swith_overlay_state = 0;
          }
          else
             SPDLOG_WARN("Failed to load image: {}", w.params.background_image);
@@ -1028,6 +1029,7 @@ static void check_images(struct device_data* data)
             SPDLOG_DEBUG("Adding '{}'", w.params.alternative_background_image);
             load_image_file(data, w.params.alternative_background_image, &image);
             ti.loaded = true;
+            swith_overlay_state = 1;
          }
          else
             SPDLOG_WARN("Failed to load image: {}", w.params.alternative_background_image);

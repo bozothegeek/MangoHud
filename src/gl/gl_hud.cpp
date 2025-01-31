@@ -74,7 +74,8 @@ static std::unique_ptr<notify_thread, std::function<void(notify_thread *)>>
 
 static void check_images(overlay_params& params)
 {
-    if (params.image_params_hash == image_params_hash)
+   static bool swith_overlay_state = -1; //0: initial background loaded, 1: alternative background loaded
+    if (params.image_params_hash == image_params_hash && ((swith_overlay_state == 1) == params.switch_overlay))
         return;
     image_params_hash = params.image_params_hash;
 
@@ -116,6 +117,7 @@ static void check_images(overlay_params& params)
                                         &(ti.height),
                                         0);
         ti.loaded = true;
+        swith_overlay_state = 0;
         ti.texture = (ImTextureID)(intptr_t)tex;
         images.push_back(tex);
     }
@@ -129,6 +131,7 @@ static void check_images(overlay_params& params)
                                         &(ti.height),
                                         0);
         ti.loaded = true;
+        swith_overlay_state = 1;
         ti.texture = (ImTextureID)(intptr_t)tex;
         images.push_back(tex);
     }
