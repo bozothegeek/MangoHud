@@ -297,7 +297,9 @@ Parameters that are enabled by default have to be explicitly disabled. These (cu
 | `position=`                        | Location of the hud: `top-left` (default), `top-right`, `middle-left`, `middle-right`, `bottom-left`, `bottom-right`, `top-center` |
 | `offset_x` `offset_y`              | Hud position offsets                                                                  |
 | `no_display`                       | Hide the hud by default                                                               |
+| `switch_overlay`                   | Switch or not the overlay by default                                                               |
 | `toggle_hud=`<br>`toggle_logging=` | Modifiable toggle hotkeys. Default are `Shift_R+F12` and `Shift_L+F2`, respectively.      |
+| `toggle_switch_overlay=`           | Modifiable toggle hotkey to switch overlay. Default = `Shift_R+F10`                                     |
 | `reload_cfg=`                      | Change keybind for reloading the config. Default = `Shift_L+F4`                       |
 | `time`<br>`time_format=%T`         | Displays local time. See [std::put_time](https://en.cppreference.com/w/cpp/io/manip/put_time) for formatting help. NOTE: Sometimes apps (or AMDVLK (should be fixed in latest)) may set `TZ` (timezone) environment variable to UTC/GMT |
 | `gpu_color`<br>`cpu_color`<br>`vram_color`<br>`ram_color`<br>`io_color`<br>`engine_color`<br>`frametime_color`<br>`background_color`<br>`text_color`<br>`media_player_color`         | Change default colors: `gpu_color=RRGGBB`|

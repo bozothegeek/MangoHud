@@ -6,6 +6,7 @@ void help_and_quit() {
     fprintf(stderr, "Usage: mangohudctl [set|toggle] attribute [value]\n");
     fprintf(stderr, "Attributes:\n");
     fprintf(stderr, "   no_display      hides or shows hud\n");
+    fprintf(stderr, "   switch_overlay  Switch or not the overlay\n");
     fprintf(stderr, "   log_session     handles logging status\n");
     fprintf(stderr, "Accepted values:\n");
     fprintf(stderr, "   true\n");
@@ -58,6 +59,8 @@ int main(int argc, char *argv[])
 
     if (strcmp(argv[2], "no_display") == 0)
         ctrl_msg.no_display = value;
+    else if (strcmp(argv[2], "switch_overlay") == 0)
+        ctrl_msg.switch_overlay = value;
     else if (strcmp(argv[2], "log_session") == 0)
         ctrl_msg.log_session = value;
     else

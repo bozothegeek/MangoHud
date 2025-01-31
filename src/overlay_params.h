@@ -108,6 +108,7 @@ typedef unsigned long KeySym;
    OVERLAY_PARAM_CUSTOM(width)                       \
    OVERLAY_PARAM_CUSTOM(height)                      \
    OVERLAY_PARAM_CUSTOM(no_display)                  \
+   OVERLAY_PARAM_CUSTOM(switch_overlay)              \
    OVERLAY_PARAM_CUSTOM(control)                     \
    OVERLAY_PARAM_CUSTOM(fps_limit)                   \
    OVERLAY_PARAM_CUSTOM(vsync)                       \
@@ -116,6 +117,7 @@ typedef unsigned long KeySym;
    OVERLAY_PARAM_CUSTOM(gl_bind_framebuffer)         \
    OVERLAY_PARAM_CUSTOM(gl_dont_flip)                \
    OVERLAY_PARAM_CUSTOM(toggle_hud)                  \
+   OVERLAY_PARAM_CUSTOM(toggle_switch_overlay)       \
    OVERLAY_PARAM_CUSTOM(toggle_fps_limit)            \
    OVERLAY_PARAM_CUSTOM(toggle_logging)              \
    OVERLAY_PARAM_CUSTOM(reload_cfg)                  \
@@ -215,6 +217,7 @@ struct overlay_params {
    std::vector<std::uint32_t> fps_limit;
    bool help;
    bool no_display;
+   bool switch_overlay;
    bool full;
    bool io_read, io_write, io_stats;
    unsigned width;
@@ -243,6 +246,7 @@ struct overlay_params {
    float background_alpha, alpha;
    float cellpadding_y;
    std::vector<KeySym> toggle_hud;
+   std::vector<KeySym> toggle_switch_overlay;
    std::vector<KeySym> toggle_fps_limit;
    std::vector<KeySym> toggle_logging;
    std::vector<KeySym> reload_cfg;

@@ -9,6 +9,7 @@ void check_keybinds(struct overlay_params& params, uint32_t vendorID){
    auto elapsedF2 = now - last_f2_press;
    auto elapsedFpsLimitToggle = now - toggle_fps_limit_press;
    auto elapsedF12 = now - last_f12_press;
+   auto elapsedF10 = now - last_f10_press;
    auto elapsedReloadCfg = now - reload_cfg_press;
    auto elapsedUpload = now - last_upload_press;
 
@@ -53,6 +54,12 @@ void check_keybinds(struct overlay_params& params, uint32_t vendorID){
        keys_are_pressed(params.toggle_hud)) {
       last_f12_press = now;
       params.no_display = !params.no_display;
+   }
+
+   if (elapsedF10 >= keyPressDelay &&
+       keys_are_pressed(params.toggle_switch_overlay)) {
+      last_f10_press = now;
+      params.switch_overlay = !params.switch_overlay;
    }
 
    if (elapsedReloadCfg >= keyPressDelay &&

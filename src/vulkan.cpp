@@ -1002,7 +1002,7 @@ static void check_images(struct device_data* data)
          }
       }
 
-      if (!w.params.background_image.empty())
+      if (!w.params.background_image.empty() && !w.params.switch_overlay)
       {
          auto& ti = HUDElements.images[w.params.background_image];
          if (!ti.loaded && (ti.texture = add_texture(data, w.params.background_image, ti, 0)))
@@ -1017,7 +1017,7 @@ static void check_images(struct device_data* data)
             SPDLOG_WARN("Failed to load image: {}", w.params.background_image);
       }
 
-      if (!w.params.alternative_background_image.empty())
+      if (!w.params.alternative_background_image.empty() && w.params.switch_overlay)
       {
          auto& ti = HUDElements.images[w.params.alternative_background_image];
          if (!ti.loaded && (ti.texture = add_texture(data, w.params.alternative_background_image, ti, 0)))

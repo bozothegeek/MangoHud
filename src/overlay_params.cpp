@@ -161,6 +161,7 @@ parse_string_to_keysym_vec(const char *str)
 }
 
 #define parse_toggle_hud         parse_string_to_keysym_vec
+#define parse_toggle_switch_overlay         parse_string_to_keysym_vec
 #define parse_toggle_logging     parse_string_to_keysym_vec
 #define parse_reload_cfg         parse_string_to_keysym_vec
 #define parse_upload_log         parse_string_to_keysym_vec
@@ -169,6 +170,7 @@ parse_string_to_keysym_vec(const char *str)
 
 #else
 #define parse_toggle_hud(x)      {}
+#define parse_toggle_switch_overlay(x)      {}
 #define parse_toggle_logging(x)  {}
 #define parse_reload_cfg(x)      {}
 #define parse_upload_log(x)      {}
@@ -207,6 +209,12 @@ parse_fps_limit(const char *str)
 
 static bool
 parse_no_display(const char *str)
+{
+   return strtol(str, NULL, 0) != 0;
+}
+
+static bool
+parse_switch_overlay(const char *str)
 {
    return strtol(str, NULL, 0) != 0;
 }
@@ -468,6 +476,7 @@ parse_help(const char *str)
    fprintf(stderr, "\tposition=top-left|top-right|bottom-left|bottom-right\n");
    fprintf(stderr, "\tfps_sampling_period=number-of-milliseconds\n");
    fprintf(stderr, "\tno_display=0|1\n");
+   fprintf(stderr, "\tswitch_overlay=0|1\n");
    fprintf(stderr, "\toutput_folder=/path/to/folder\n");
    fprintf(stderr, "\twidth=width-in-pixels\n");
    fprintf(stderr, "\theight=height-in-pixels\n");
@@ -652,6 +661,7 @@ parse_overlay_config(struct overlay_params *params,
 
 #ifdef HAVE_X11
    params->toggle_hud = { XK_Shift_R, XK_F12 };
+   params->toggle_switch_overlay = { XK_Shift_R, XK_F10 };
    params->toggle_fps_limit = { XK_Shift_L, XK_F1 };
    params->toggle_logging = { XK_Shift_L, XK_F2 };
    params->reload_cfg = { XK_Shift_L, XK_F4 };
@@ -666,11 +676,13 @@ parse_overlay_config(struct overlay_params *params,
    params->reload_cfg = { VK_F4 };
 
    #undef parse_toggle_hud
+   #undef parse_toggle_switch_overlay
    #undef parse_toggle_fps_limit
    #undef parse_toggle_logging
    #undef parse_reload_cfg
 
    #define parse_toggle_hud(x)         params->toggle_hud
+   #define parse_toggle_switch_overlay(x)         params->toggle_switch_overlay
    #define parse_toggle_fps_limit(x)   params->toggle_fps_limit
    #define parse_toggle_logging(x)     params->toggle_logging
    #define parse_reload_cfg(x)         params->reload_cfg

@@ -107,7 +107,7 @@ static void check_images(overlay_params& params)
         }
     }
 
-    if (!params.background_image.empty())
+    if (!params.background_image.empty() && !params.switch_overlay)
     {
         auto& ti = HUDElements.images[params.background_image];
         ti.valid = GL_LoadTextureFromFile(params.background_image.c_str(),
@@ -120,7 +120,7 @@ static void check_images(overlay_params& params)
         images.push_back(tex);
     }
 
-    if (!params.alternative_background_image.empty())
+    if (!params.alternative_background_image.empty() && params.switch_overlay)
     {
         auto& ti = HUDElements.images[params.alternative_background_image];
         ti.valid = GL_LoadTextureFromFile(params.alternative_background_image.c_str(),

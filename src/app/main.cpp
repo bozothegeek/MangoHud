@@ -109,6 +109,23 @@ static void ctrl_thread(){
                     break;
             }
         }
+        {
+            std::lock_guard<std::mutex> lk(mangoapp_m);
+            switch (mangoapp_ctrl_v1->switch_overlay){
+                case 0:
+                    // Keep as-is
+                    break;
+                case 1:
+                    params.switch_overlay = 1;
+                    break;
+                case 2:
+                    params.switch_overlay = 0;
+                    break;
+                case 3:
+                    params.switch_overlay ? params.switch_overlay = 0 : params.switch_overlay = 1;
+                    break;
+            }
+        }
         mangoapp_cv.notify_one();
     }
 }
